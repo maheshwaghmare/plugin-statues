@@ -1,19 +1,19 @@
 <?php
 /**
- * Plugin Statues
+ * Plugin Status
  *
- * @package Plugin Statues
+ * @package Plugin Status
  * @since 1.0.0
  */
 
-if ( ! class_exists( 'Plugin_Statues' ) ) :
+if ( ! class_exists( 'Plugin_Status' ) ) :
 
 	/**
-	 * Plugin Statues
+	 * Plugin Status
 	 *
 	 * @since 1.0.0
 	 */
-	class Plugin_Statues {
+	class Plugin_Status {
 
 		/**
 		 * Instance
@@ -53,7 +53,7 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 			add_action( 'admin_init', array( $this, 'export_json' ) );
 			add_action( 'admin_init', array( $this, 'import_json' ) );
-			add_action( 'plugin_action_links_' . PLUGIN_STATUES_BASE, array( $this, 'action_links' ) );
+			add_action( 'plugin_action_links_' . PLUGIN_STATUS_BASE, array( $this, 'action_links' ) );
 		}
 
 		/**
@@ -64,7 +64,7 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 		function multisite_support() {
 			?>
 			<div class="notice notice-error">
-				<p><?php _e( 'The plugin <b>"Plugin Statues - Export and Import"</b> is not supported on multisite. You\'ll get the multisite support for this plugin in future plugin release.', 'plugin-statues' ); ?></p>
+				<p><?php _e( 'The plugin <b>"Plugin Status - Export and Import"</b> is not supported on multisite. You\'ll get the multisite support for this plugin in future plugin release.', 'plugin-status' ); ?></p>
 			</div>
 			<?php
 		}
@@ -75,11 +75,11 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 		 * @since 1.0.0
 		 */
 		public function import_json() {
-			if ( empty( $_POST['plugin-statues-action'] ) || 'import' !== $_POST['plugin-statues-action'] ) {
+			if ( empty( $_POST['plugin-status-action'] ) || 'import' !== $_POST['plugin-status-action'] ) {
 				return;
 			}
 
-			if ( isset( $_POST['plugin-statues-action-nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['plugin-statues-action-nonce'] ) ), 'plugin-statues-action-nonce' ) ) {
+			if ( isset( $_POST['plugin-status-action-nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['plugin-status-action-nonce'] ) ), 'plugin-status-action-nonce' ) ) {
 				return;
 			}
 
@@ -93,13 +93,13 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 			$extension = end( $file_info );
 
 			if ( 'json' !== $extension ) {
-				wp_die( esc_html__( 'Please upload a valid .json file', 'plugin-statues' ) );
+				wp_die( esc_html__( 'Please upload a valid .json file', 'plugin-status' ) );
 			}
 
 			$file = $_FILES['file']['tmp_name'];
 
 			if ( empty( $file ) ) {
-				wp_die( esc_html__( 'Please upload a file to import', 'plugin-statues' ) );
+				wp_die( esc_html__( 'Please upload a file to import', 'plugin-status' ) );
 			}
 
 			// Retrieve the settings from the file and convert the JSON object to an array.
@@ -130,7 +130,7 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 		public function user_permissions() {
 			?>
 			<div class="notice notice-error">
-				<p><?php esc_html_e( 'You have not activate permissions! Please contact administrator.', 'plugin-statues' ); ?></p>
+				<p><?php esc_html_e( 'You have not activate permissions! Please contact administrator.', 'plugin-status' ); ?></p>
 			</div>
 			<?php
 		}
@@ -143,7 +143,7 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 		public function imported_successfully() {
 			?>
 			<div class="notice notice-success">
-				<p><?php esc_html_e( 'Successfully updated all plugin statues.', 'plugin-statues' ); ?></p>
+				<p><?php esc_html_e( 'Successfully updated all plugin status.', 'plugin-status' ); ?></p>
 			</div>
 			<?php
 		}
@@ -154,11 +154,11 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 		 * @since 1.0.0
 		 */
 		public function export_json() {
-			if ( empty( $_POST['plugin-statues-action'] ) || 'export' !== $_POST['plugin-statues-action'] ) {
+			if ( empty( $_POST['plugin-status-action'] ) || 'export' !== $_POST['plugin-status-action'] ) {
 				return;
 			}
 
-			if ( isset( $_POST['plugin-statues-action-nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['plugin-statues-action-nonce'] ) ), 'plugin-statues-action-nonce' ) ) {
+			if ( isset( $_POST['plugin-status-action-nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['plugin-status-action-nonce'] ) ), 'plugin-status-action-nonce' ) ) {
 				return;
 			}
 
@@ -167,7 +167,7 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 			}
 
 			// Export file name.
-			$default_filename = 'plugin-statues-' . gmdate( 'm-d-Y' );
+			$default_filename = 'plugin-status-' . gmdate( 'm-d-Y' );
 			$filename         = isset( $_POST['filename'] ) ? sanitize_file_name( $_POST['filename'] ) : $default_filename;
 			if ( empty( $filename ) ) {
 				$filename = $default_filename;
@@ -180,7 +180,7 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 				'inactive' => array(),
 			);
 
-			// Categories active and inactive plugin statues.
+			// Categories active and inactive plugin status.
 			foreach ( $all_plugins as $plugin_init => $plugin ) {
 				if ( in_array( $plugin_init, $active_plugins, true ) ) {
 					$json['active'][ $plugin_init ] = $plugin;
@@ -205,8 +205,8 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 		 * @since 1.0.0
 		 */
 		public function add_to_menus() {
-			add_submenu_page( 'plugins.php', __( 'Export', 'plugin-statues' ), __( 'Export', 'plugin-statues' ), 'export', 'export', array( $this, 'export_markup' ) );
-			add_submenu_page( 'plugins.php', __( 'Import', 'plugin-statues' ), __( 'Import', 'plugin-statues' ), 'import', 'import', array( $this, 'import_markup' ) );
+			add_submenu_page( 'plugins.php', __( 'Export', 'plugin-status' ), __( 'Export', 'plugin-status' ), 'export', 'export', array( $this, 'export_markup' ) );
+			add_submenu_page( 'plugins.php', __( 'Import', 'plugin-status' ), __( 'Import', 'plugin-status' ), 'import', 'import', array( $this, 'import_markup' ) );
 		}
 
 		/**
@@ -215,7 +215,7 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 		 * @since 1.0.0
 		 */
 		public function export_markup() {
-			include_once PLUGIN_STATUES_DIR . 'includes/export.php';
+			include_once PLUGIN_STATUS_DIR . 'includes/export.php';
 		}
 
 		/**
@@ -224,7 +224,7 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 		 * @since 1.0.0
 		 */
 		public function import_markup() {
-			include_once PLUGIN_STATUES_DIR . 'includes/import.php';
+			include_once PLUGIN_STATUS_DIR . 'includes/import.php';
 		}
 
 		/**
@@ -236,8 +236,8 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 		 */
 		function action_links( $links ) {
 			$action_links = array(
-				'import' => '<a href="' . admin_url( 'plugins.php?page=import' ) . '" aria-label="' . esc_attr__( 'Import', 'plugin-statues' ) . '">' . esc_html__( 'Import', 'plugin-statues' ) . '</a>',
-				'export' => '<a href="' . admin_url( 'plugins.php?page=export' ) . '" aria-label="' . esc_attr__( 'Export', 'plugin-statues' ) . '">' . esc_html__( 'Export', 'plugin-statues' ) . '</a>',
+				'import' => '<a href="' . admin_url( 'plugins.php?page=import' ) . '" aria-label="' . esc_attr__( 'Import', 'plugin-status' ) . '">' . esc_html__( 'Import', 'plugin-status' ) . '</a>',
+				'export' => '<a href="' . admin_url( 'plugins.php?page=export' ) . '" aria-label="' . esc_attr__( 'Export', 'plugin-status' ) . '">' . esc_html__( 'Export', 'plugin-status' ) . '</a>',
 			);
 
 			return array_merge( $action_links, $links );
@@ -257,13 +257,13 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 				return;
 			}
 
-			wp_enqueue_script( 'plugin-statues', PLUGIN_STATUES_URI . 'assets/js/script.js', array( 'jquery' ), PLUGIN_STATUES_VER, true );
+			wp_enqueue_script( 'plugin-status', PLUGIN_STATUS_URI . 'assets/js/script.js', array( 'jquery' ), PLUGIN_STATUS_VER, true );
 
 			$data = array(
 				'import_url' => admin_url( 'plugins.php?page=import' ),
 				'export_url' => admin_url( 'plugins.php?page=export' ),
 			);
-			wp_localize_script( 'plugin-statues', 'pluginStatues', $data );
+			wp_localize_script( 'plugin-status', 'pluginStatus', $data );
 		}
 
 	}
@@ -271,6 +271,6 @@ if ( ! class_exists( 'Plugin_Statues' ) ) :
 	/**
 	 * Kicking this off by calling 'get_instance()' method
 	 */
-	Plugin_Statues::get_instance();
+	Plugin_Status::get_instance();
 
 endif;

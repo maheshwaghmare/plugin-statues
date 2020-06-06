@@ -1,6 +1,6 @@
 (function($) {
 
-	PluginStatues = {
+	PluginStatus = {
 
 		init: function()
 		{
@@ -10,16 +10,16 @@
 		_addButtons: function() {
 			$button = $( '.page-title-action:first' );
 
-			$button.after('<a href="'+pluginStatues.export_url+'" class="page-title-action">Export</a>' );
-			$button.after('<a href="'+pluginStatues.import_url+'" class="page-title-action">Import</a>');
+			$button.after('<a href="'+pluginStatus.export_url+'" class="page-title-action">Export</a>' );
+			$button.after('<a href="'+pluginStatus.import_url+'" class="page-title-action">Import</a>');
 		}
 	};
 
 	/**
-	 * Initialize PluginStatues
+	 * Initialize PluginStatus
 	 */
 	$(function(){
-		PluginStatues.init();
+		PluginStatus.init();
 	});
 
 })(jQuery);
