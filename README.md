@@ -10,6 +10,8 @@ We can use the exported JSON file to re-set the active and inactive plugins.
 
 See video - https://maheshwaghmare.com/how-to-use-the-plugin-statues-wordpress-plugin-mp4/
 
+![How to Use](how-to.gif)
+
 ### Activate Plugin
 
 ![Screenshot 1](screenshot-1.png)
