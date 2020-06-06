@@ -1,4 +1,4 @@
-=== Plugin Status - Export and Import ===
+=== Plugin Status ===
 Contributors: Mahesh901122
 Tags: plugin, import, export
 Donate link: https://www.paypal.me/mwaghmare7/
